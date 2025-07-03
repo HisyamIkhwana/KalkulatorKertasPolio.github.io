@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Kertas Folio Modern</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #005c97;
+            --secondary-color: #363795;
+            --background-color: #f0f4f8;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --label-color: #555555;
+            --border-color: #dbe2e9;
+            --success-bg: #e6f6f0;
+            --success-text: #0d8a57;
+            --success-border: #b3e6d1;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: var(--card-background);
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            transition: all 0.3s ease;
+        }
+        
+        .container:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        
+        p.subtitle {
+            color: var(--label-color);
+            margin-top: 5px;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--label-color);
+            font-size: 0.9rem;
+        }
+
+        textarea, input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea {
+            height: 220px;
+            resize: vertical;
+        }
+        
+        textarea:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 92, 151, 0.2);
+        }
+
+        .settings {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        #hasil {
+            margin-top: 25px;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-align: center;
+            background-color: var(--success-bg);
+            color: var(--success-text);
+            border: 1px solid var(--success-border);
+            line-height: 1.6;
+        }
+        
+        #hasil strong {
+            font-weight: 700;
+        }
+
+        /* Div tersembunyi untuk simulasi */
+        #simulator {
+            position: absolute;
+            visibility: hidden;
+            left: -9999px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Kalkulator Folio 📑</h1>
+            <p class="subtitle">Hitung kebutuhan kertas folio Anda secara akurat.</p>
+        </div>
+        
+        <div class="input-group">
+            <label for="naskah">Tempelkan Seluruh Naskah Anda</label>
+            <textarea id="naskah" placeholder="Mulai ketik atau tempelkan teks di sini..."></textarea>
+        </div>
+        
+        <div class="settings">
+            <div class="input-group">
+                <label for="fontSize">Ukuran Font (pt)</label>
+                <input type="number" id="fontSize" value="12">
+            </div>
+            <div class="input-group">
+                <label for="margin">Total Margin Kiri & Kanan (cm)</label>
+                <input type="number" id="margin" value="2">
+            </div>
+        </div>
+
+        <button onclick="hitungKertas()">✨ Hitung Kebutuhan Kertas</button>
+        <div id="hasil" style="display: none;"></div>
+    </div>
+
+    <div id="simulator"></div>
+
+    <script>
+        function hitungKertas() {
+            const naskah = document.getElementById('naskah').value;
+            const fontSize = document.getElementById('fontSize').value;
+            const totalMarginCm = document.getElementById('margin').value;
+            const hasilDiv = document.getElementById('hasil');
+
+            hasilDiv.style.display = 'none';
+
+            if (naskah.trim() === '') {
+                hasilDiv.textContent = 'Naskah tidak boleh kosong!';
+                hasilDiv.style.backgroundColor = '#fff0f0';
+                hasilDiv.style.color = '#c0392b';
+                hasilDiv.style.borderColor = '#e74c3c';
+                hasilDiv.style.display = 'block';
+                return;
+            }
+
+            const barisHalamanPertama = 34;
+            const barisHalamanBerikutnya = 40;
+            const lebarKertasCm = 21;
+
+            const simulator = document.getElementById('simulator');
+            const lebarCetakCm = lebarKertasCm - totalMarginCm;
+            simulator.style.fontFamily = 'Arial, sans-serif';
+            simulator.style.fontSize = `${fontSize}pt`;
+            simulator.style.width = `${lebarCetakCm}cm`;
+            simulator.style.whiteSpace = 'pre-wrap';
+            simulator.style.wordBreak = 'break-word';
+
+            simulator.textContent = 'X';
+            const tinggiSatuBaris = simulator.offsetHeight;
+
+            simulator.textContent = naskah;
+            const totalTinggiNaskah = simulator.scrollHeight;
+            const totalBaris = tinggiSatuBaris > 0 ? Math.ceil(totalTinggiNaskah / tinggiSatuBaris) : 0;
+
+            let jumlahKertas = 0;
+            if (totalBaris > 0) {
+                jumlahKertas = 1;
+                let sisaBaris = totalBaris - barisHalamanPertama;
+
+                if (sisaBaris > 0) {
+                    jumlahKertas += Math.ceil(sisaBaris / barisHalamanBerikutnya);
+                }
+            }
+
+            hasilDiv.innerHTML = `
+                Total baris naskah: <strong>${totalBaris} baris</strong><br>
+                Estimasi kertas yang dibutuhkan: <strong>${jumlahKertas} lembar folio</strong>
+            `;
+            hasilDiv.style.backgroundColor = 'var(--success-bg)';
+            hasilDiv.style.color = 'var(--success-text)';
+            hasilDiv.style.borderColor = 'var(--success-border)';
+            hasilDiv.style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
