@@ -1,6 +1,5 @@
 # Kalkulator Kertas Folio Akurat & Fleksibel
 
-![Screenshot Kalkulator Folio](https://i.imgur.com/YqT4dF2.png)
 
 Sebuah aplikasi web canggih untuk menghitung secara akurat jumlah lembar kertas folio (F4) yang dibutuhkan untuk sebuah naskah. Aplikasi ini mensimulasikan tata letak teks berdasarkan konten, font, dan margin, serta memberikan kebebasan penuh kepada pengguna untuk mengatur aturan cetak sesuai kebutuhan spesifik mereka.
 
