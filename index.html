@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Kertas Folio Fleksibel</title>
+    <title>Kalkulator Kertas Folio Profesional</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,16 +11,16 @@
 
     <style>
         :root {
-            --primary-color: #005c97;
-            --secondary-color: #363795;
-            --background-color: #f0f4f8;
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
             --card-background: #ffffff;
             --text-color: #333333;
             --label-color: #555555;
-            --border-color: #dbe2e9;
-            --success-bg: #e6f6f0;
-            --success-text: #0d8a57;
-            --success-border: #b3e6d1;
+            --border-color: #dfe6e9;
+            --success-bg: #eaf8f2;
+            --success-text: #27ae60;
+            --success-border: #a3e9c6;
         }
 
         body {
@@ -30,7 +30,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background-color: #ecf0f1;
             padding: 20px;
             box-sizing: border-box;
         }
@@ -39,40 +39,57 @@
             background-color: var(--card-background);
             padding: 30px 40px;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 700px;
-            transition: all 0.3s ease;
-        }
-        
-        .container:hover {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            max-width: 800px; /* Lebarkan sedikit untuk layout baru */
         }
 
         .header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         h1 {
             color: var(--primary-color);
             margin: 0;
             font-weight: 700;
-            font-size: 1.8rem;
+            font-size: 1.9rem;
         }
         
         p.subtitle {
             color: var(--label-color);
             margin-top: 5px;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
+        
+        /* -- STRUKTUR PENGATURAN BARU -- */
+        .settings-container {
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 25px 0;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .settings-column h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+        /* ----------------------------- */
 
         .input-group {
             margin-bottom: 20px;
         }
 
         label {
-            font-weight: 600;
+            font-weight: 500;
             display: block;
             margin-bottom: 8px;
             color: var(--label-color);
@@ -91,25 +108,19 @@
         }
 
         textarea {
-            height: 220px;
+            height: 200px;
             resize: vertical;
+            margin-bottom: 30px;
         }
         
         textarea:focus, input[type="number"]:focus {
             outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 92, 151, 0.2);
-        }
-
-        .settings {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsif */
-            gap: 20px;
-            margin-bottom: 25px;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
         button {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--accent-color);
             color: white;
             padding: 15px 20px;
             border: none;
@@ -119,43 +130,46 @@
             width: 100%;
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        button:active {
-            transform: translateY(0);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            background-color: #2980b9;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
         }
 
         #hasil {
-            margin-top: 25px;
+            margin-top: 30px;
             padding: 18px;
             border-radius: 8px;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 500;
             text-align: center;
             background-color: var(--success-bg);
             color: var(--success-text);
-            border: 1px solid var(--success-border);
+            border-left: 5px solid var(--success-text);
             line-height: 1.6;
-            display: none; /* Sembunyikan secara default */
+            display: none;
         }
         
         #hasil strong {
             font-weight: 700;
         }
-
-        /* Div tersembunyi untuk simulasi */
+        
+        /* Media Query untuk layar kecil */
+        @media (max-width: 768px) {
+            .settings-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .container {
+                padding: 25px;
+            }
+        }
+        
         #simulator {
-            position: absolute;
-            visibility: hidden;
-            left: -9999px;
-            z-index: -1;
+            position: absolute; visibility: hidden; left: -9999px; z-index: -1;
         }
     </style>
 </head>
@@ -163,35 +177,42 @@
 
     <div class="container">
         <div class="header">
-            <h1>Kalkulator Folio 📑</h1>
-            <p class="subtitle">Hitung kebutuhan kertas folio Anda secara akurat.</p>
+            <h1>Kalkulator Kertas Folio 📑</h1>
+            <p class="subtitle">Hitung kebutuhan kertas Anda dengan akurat dan mudah.</p>
         </div>
         
         <div class="input-group">
-            <label for="naskah">Tempelkan Seluruh Naskah Anda</label>
+            <label for="naskah">Langkah 1: Tempelkan Seluruh Naskah Anda</label>
             <textarea id="naskah" placeholder="Mulai ketik atau tempelkan teks di sini..."></textarea>
         </div>
         
-        <div class="settings">
-            <div class="input-group">
-                <label for="fontSize">Ukuran Font (pt)</label>
-                <input type="number" id="fontSize" value="12" min="1">
+        <div class="settings-container">
+            <div class="settings-column">
+                <h3>Pengaturan Tampilan</h3>
+                <div class="input-group">
+                    <label for="fontSize">Ukuran Font (pt)</label>
+                    <input type="number" id="fontSize" value="12" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="margin">Total Margin Kiri & Kanan (cm)</label>
+                    <input type="number" id="margin" value="5" min="0">
+                </div>
             </div>
-            <div class="input-group">
-                <label for="margin">Total Margin Kiri & Kanan (cm)</label>
-                <input type="number" id="margin" value="5" min="0">
-            </div>
-            <div class="input-group">
-                <label for="barisHalamanPertama">Baris Halaman Pertama</label>
-                <input type="number" id="barisHalamanPertama" value="34" min="1">
-            </div>
-            <div class="input-group">
-                <label for="barisHalamanBerikutnya">Baris Halaman Berikutnya</label>
-                <input type="number" id="barisHalamanBerikutnya" value="40" min="1">
+
+            <div class="settings-column">
+                <h3>Aturan Halaman Cetak</h3>
+                <div class="input-group">
+                    <label for="barisHalamanPertama">Baris Halaman Pertama</label>
+                    <input type="number" id="barisHalamanPertama" value="34" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="barisHalamanBerikutnya">Baris Halaman Berikutnya</label>
+                    <input type="number" id="barisHalamanBerikutnya" value="40" min="1">
+                </div>
             </div>
         </div>
 
-        <button onclick="hitungKertas()">✨ Hitung Kebutuhan Kertas</button>
+        <button onclick="hitungKertas()">✨ Langkah 2: Hitung Kebutuhan Kertas</button>
         <div id="hasil"></div>
     </div>
 
@@ -199,7 +220,6 @@
 
     <script>
         function hitungKertas() {
-            // --- Mengambil Nilai dari Semua Input ---
             const naskah = document.getElementById('naskah').value;
             const fontSize = parseInt(document.getElementById('fontSize').value) || 12;
             const totalMarginCm = parseFloat(document.getElementById('margin').value) || 5;
@@ -207,18 +227,17 @@
             const barisHalamanBerikutnya = parseInt(document.getElementById('barisHalamanBerikutnya').value) || 40;
             
             const hasilDiv = document.getElementById('hasil');
-            hasilDiv.style.display = 'none'; // Sembunyikan hasil lama
+            hasilDiv.style.display = 'none';
 
             if (naskah.trim() === '') {
-                hasilDiv.textContent = 'Naskah tidak boleh kosong!';
-                hasilDiv.style.backgroundColor = '#fff0f0';
-                hasilDiv.style.color = '#c0392b';
-                hasilDiv.style.borderColor = '#e74c3c';
+                hasilDiv.innerHTML = '<strong>Oops!</strong> Naskah tidak boleh kosong.';
+                hasilDiv.style.backgroundColor = '#fbeae5';
+                hasilDiv.style.color = '#e74c3c';
+                hasilDiv.style.borderLeft = '5px solid #e74c3c';
                 hasilDiv.style.display = 'block';
                 return;
             }
 
-            // --- Logika Simulasi ---
             const lebarKertasCm = 21;
             const simulator = document.getElementById('simulator');
             const lebarCetakCm = lebarKertasCm - totalMarginCm;
@@ -229,32 +248,30 @@
             simulator.style.whiteSpace = 'pre-wrap';
             simulator.style.wordBreak = 'break-word';
 
-            simulator.textContent = 'X'; // Karakter sampel
+            simulator.textContent = 'X';
             const tinggiSatuBaris = simulator.offsetHeight;
 
             simulator.textContent = naskah;
             const totalTinggiNaskah = simulator.scrollHeight;
             const totalBaris = tinggiSatuBaris > 0 ? Math.ceil(totalTinggiNaskah / tinggiSatuBaris) : 0;
 
-            // --- Logika Perhitungan Kertas ---
             let jumlahKertas = 0;
             if (totalBaris > 0) {
-                jumlahKertas = 1; // Kertas pertama selalu dihitung jika ada konten
+                jumlahKertas = 1;
                 let sisaBaris = totalBaris - barisHalamanPertama;
 
                 if (sisaBaris > 0) {
                     jumlahKertas += Math.ceil(sisaBaris / barisHalamanBerikutnya);
                 }
             }
-
-            // --- Menampilkan Hasil ---
+            
             hasilDiv.innerHTML = `
                 Total baris naskah: <strong>${totalBaris} baris</strong><br>
                 Estimasi kertas yang dibutuhkan: <strong>${jumlahKertas} lembar folio</strong>
             `;
             hasilDiv.style.backgroundColor = 'var(--success-bg)';
             hasilDiv.style.color = 'var(--success-text)';
-            hasilDiv.style.borderColor = 'var(--success-border)';
+            hasilDiv.style.borderLeft = '5px solid var(--success-text)';
             hasilDiv.style.display = 'block';
         }
     </script>
